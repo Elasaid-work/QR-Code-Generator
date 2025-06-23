@@ -29,6 +29,6 @@ jobs:
 
     - name: Build and Push Frontend
       run: |
-        docker build -t elasaid/qr-frontend:latest ./frontend
+        docker build -t elasaid/qr-frontend:latest ./front-end-nextjs
         docker push elasaid/qr-frontend:latest
 
