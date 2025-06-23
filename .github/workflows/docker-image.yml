@@ -24,11 +24,11 @@ jobs:
 
     - name: Build and Push API
       run: |
-        docker build -t Elasaid-work/qr-code-generator ./api
+        docker build -t qr-api ./api
         docker push elasaid/qr-api
 
     - name: Build and Push Frontend
       run: |
-        docker build -t Elasaid-work/qr-code-generator ./frontend
+        docker build -t qr-frontend ./frontend
         docker push elasaid/qr-frontend
 
