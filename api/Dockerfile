@@ -1,13 +1,17 @@
-FROM python:3.10
+FROM python:3.10-slim
 
-# Install poetry
-RUN curl -sSL https://install.python-poetry.org | python3 - && \
-    ln -s /root/.local/bin/poetry /usr/local/bin/poetry
+# Install dependencies and poetry
+ENV POETRY_VERSION=1.8.2
+ENV PATH="/root/.local/bin:$PATH"
 
-# Set working dir
+RUN apt-get update && apt-get install -y curl && \
+    curl -sSL https://install.python-poetry.org | python3 - && \
+    apt-get clean
+
+# Set working directory
 WORKDIR /app
 
-# Copy pyproject files
+# Copy only dependency files first
 COPY pyproject.toml poetry.lock* ./
 
 # Install dependencies
