@@ -28,15 +28,19 @@ COPY . .
 # ---------------------
 FROM python:3.10-slim AS run
 
-WORKDIR /app
+ENV PATH="/root/.local/bin:$PATH"
 
-# Copy installed app and deps from builder
+# Copy python packages and binaries from build stage
+COPY --from=build /usr/local/lib /usr/local/lib
+COPY --from=build /usr/local/bin /usr/local/bin
+
+# Copy your app code
+WORKDIR /app
 COPY --from=build /app /app
 
-# Create static dir (if needed by app)
+# Create directory for QR output
 RUN mkdir -p static/qr_codes
 
 EXPOSE 8000
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-
